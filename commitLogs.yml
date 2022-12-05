@@ -1,0 +1,17 @@
+name: Action Using Pull Requests
+run-name: ${{ github.actor }} run of Pull Request Action
+on: [pull_request]
+jobs:
+  Example-Action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+    
+      - name: Fetch Files
+        run: git fetch
+        
+      - name: Get Commit Messages
+        run: git log origin/${{ github.event.pull_request.base.ref }}
